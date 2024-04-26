@@ -8,9 +8,9 @@
 
 
 __global__ void initKernel(float* input, int3* output, int2 size) {
-    int x = blockIdx.x * blockDim.x + threadIdx.x;
-	int y = blockIdx.y * blockDim.y + threadIdx.y;
-    if (x > size.x || y > size.y) return;
+    int x = int(blockIdx.x * blockDim.x + threadIdx.x);
+	int y = int(blockIdx.y * blockDim.y + threadIdx.y);
+    if (x >= size.x || y >= size.y) return;
 
     int pixelIdx = x * size.y + y;
     float inputValue = input[pixelIdx];
@@ -20,9 +20,9 @@ __global__ void initKernel(float* input, int3* output, int2 size) {
 
 
 __global__ void jumpFloodingKernel(int3* input, int3* output, int step, int2 size) {
-	int x = blockIdx.x * blockDim.x + threadIdx.x;
-	int y = blockIdx.y * blockDim.y + threadIdx.y;
-	if (x > size.x || y > size.y) return;
+	int x = int(blockIdx.x * blockDim.x + threadIdx.x);
+	int y = int(blockIdx.y * blockDim.y + threadIdx.y);
+	if (x >= size.x || y >= size.y) return;
 
     int selfIdx = x * size.y + y;
     int3 inputData = input[selfIdx];
@@ -69,9 +69,9 @@ __global__ void jumpFloodingKernel(int3* input, int3* output, int step, int2 siz
 
 
 __global__ void signedDistanceKernel(int3* input, float2* output, int2 size) {
-    int x = blockIdx.x * blockDim.x + threadIdx.x;
-	int y = blockIdx.y * blockDim.y + threadIdx.y;
-	if (x > size.x || y > size.y) return;
+    int x = int(blockIdx.x * blockDim.x + threadIdx.x);
+	int y = int(blockIdx.y * blockDim.y + threadIdx.y);
+	if (x >= size.x || y >= size.y) return;
 
     int idx = x * size.y + y;
     int3 inputData = input[idx];

@@ -102,5 +102,10 @@ data = torch.from_numpy(img).cuda().unsqueeze(-1)
 result = jump_flooding(data)
 print(result.min(), result.max())
 result_np = result.cpu().numpy()
-vis = visualize_flow(result_np) * 255.0
-Image.fromarray(vis.astype(np.uint8)).save("result.png")
+vis_sdf = visualize_flow(result_np) * 255.0
+Image.fromarray(vis_sdf.astype(np.uint8)).save("result.png")
+
+dist = result_np[:, :, 0] * result_np[:, :, 0] + result_np[:, :, 1] * result_np[:, :, 1]
+dist = np.sqrt(dist)
+dist = dist / dist.max() * 255
+Image.fromarray(dist.astype(np.uint8)).save("result_gray.png")
