@@ -96,16 +96,16 @@ def visualize_flow(flow: np.ndarray):
     return flow_image
 
 
-img = np.array(Image.open('test.png').convert('L')).astype(np.float32) / 255.0
+img = np.array(Image.open('assets/demo.png').convert('L')).astype(np.float32) / 255.0
 img = -img + 0.5
 data = torch.from_numpy(img).cuda().unsqueeze(-1)
 result = jump_flooding(data)
 print(result.min(), result.max())
 result_np = result.cpu().numpy()
 vis_sdf = visualize_flow(result_np) * 255.0
-Image.fromarray(vis_sdf.astype(np.uint8)).save("result.png")
+Image.fromarray(vis_sdf.astype(np.uint8)).save("assets/result.png")
 
 dist = result_np[:, :, 0] * result_np[:, :, 0] + result_np[:, :, 1] * result_np[:, :, 1]
 dist = np.sqrt(dist)
 dist = dist / dist.max() * 255
-Image.fromarray(dist.astype(np.uint8)).save("result_gray.png")
+Image.fromarray(dist.astype(np.uint8)).save("assets/result_gray.png")

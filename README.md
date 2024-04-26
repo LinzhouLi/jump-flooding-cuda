@@ -1,7 +1,7 @@
 # Jump Flooding Algorithm
 
-![test](test.png)
+![test](assets/test.png)
 
-![test](result.png)
+![test](assets/result.png)
 
-![test](result_gray.png)
+![test](assets/result_gray.png)
