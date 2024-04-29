@@ -2,8 +2,7 @@
 #include "jump_flooding_cuda.h"
 
 torch::Tensor jumpFlooding(const torch::Tensor& input) {
-    if (input.ndimension() != 3 || input.size(2) != 1)
-		AT_ERROR("input must have dimensions (H, W, 1)");
+    if (input.ndimension() != 2) AT_ERROR("input must have dimensions (H, W)");
 
     int H = input.size(0);
     int W = input.size(1);

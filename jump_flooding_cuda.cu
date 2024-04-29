@@ -14,7 +14,7 @@ __global__ void initKernel(float* input, int3* output, int2 size) {
 
     int pixelIdx = x * size.y + y;
     float inputValue = input[pixelIdx];
-    if (inputValue < 0.0f) output[pixelIdx] = make_int3(x, y, 1); // interior
+    if (inputValue > 1e-4f) output[pixelIdx] = make_int3(x, y, 1); // interior
     else output[pixelIdx] = make_int3(-1, -1, -1);
 }
 
